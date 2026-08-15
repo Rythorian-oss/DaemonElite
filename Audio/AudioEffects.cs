@@ -7,7 +7,26 @@
 // ENGINEER NOTES: Memory Footprint Only Bumped up to ~5.8 MB = (5,796,248 bytes) Across 74,111 object. 
 // >>>>>>>>>>>>>>>  This is still a "phenomenally small footprint" for a WPF Desktop Application, having a few hundred kilobytes.
 using NAudio.Wave;
-
+#region SYSTEM INITIALIZATION : BLACK STAR PROJECT
+/// <summary>
+/// Core application node for the Black Star Research Facility.
+/// </summary>
+/// <remarks>
+/// <code>
+/// ========================================================================
+///   ____  _        _    ____ _  __  ____ _____  _    ____  
+///  | __ )| |      / \  / ___| |/ / / ___|_   _|/ \  |  _ \ 
+///  |  _ \| |     / _ \| |   | ' /  \___ \ | | / _ \ | |_) |
+///  | |_) | |___ / ___ \ |___| . \   ___) || |/ ___ \|  _ < 
+///  |____/|_____/_/   \_\____|_|\_\ |____/ |_/_/   \_\_| \_\
+///                                                          
+///              R E S E A R C H   F A C I L I T Y           
+///                                                          
+///             [ LOCATION: ICELAND ]            
+/// ========================================================================
+/// </code>
+/// </remarks>
+#endregion
 namespace DaemonElite.Audio;
 
 internal sealed class DelayLine
@@ -91,7 +110,7 @@ public sealed class AudioEffects : SampleEffectProviderBase
         set => _mix = Math.Clamp(value, 0f, 1f);
     }
 
-    /// <summary>Delay time in seconds (0–5), now actually used to place the delay tap.</summary>
+    /// <summary>Delay time in seconds (0â€“5), now actually used to place the delay tap.</summary>
     public float Time
     {
         get => _time;
@@ -261,7 +280,7 @@ public sealed class TremoloEffectProvider(ISampleProvider source, float rate, fl
 /// decoupling potentially expensive effect processing from the real-time audio
 /// callback thread. Adds latency equal to <paramref name="bufferDuration"/>, so
 /// only use this if your effect chain is heavy enough to risk underruns on the
-/// callback thread — the four effects above are not.
+/// callback thread â€” the four effects above are not.
 ///
 /// The producer thread is a real, joinable thread with a clean shutdown path
 /// (Dispose stops it and waits for exit), so it can't leak past the wrapper's
@@ -326,7 +345,7 @@ public sealed class BufferedSampleProvider : ISampleProvider, IDisposable
             int read = _source.Read(scratch, 0, toRead);
             if (read <= 0)
             {
-                // Upstream has nothing right now — avoid a hot spin loop.
+                // Upstream has nothing right now â€” avoid a hot spin loop.
                 Thread.Sleep(5);
                 continue;
             }
